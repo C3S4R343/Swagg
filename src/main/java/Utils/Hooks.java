@@ -22,7 +22,7 @@ public class Hooks {
     // Método para cerrar el navegador después de cada prueba
     @After
     public void tearDown() {
-        if (driver == null) {
+        if (driver != null) {
             driver.quit();
         }
     }

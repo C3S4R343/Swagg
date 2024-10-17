@@ -1,11 +1,7 @@
 package Definitions;
 
-import Pages.CartPage;
-import Pages.CheckOutPage;
-import Pages.InventoryPage;
-import Pages.LoginPage;
+import Pages.*;
 import Utils.Hooks;
-import io.cucumber.java.be.I;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -16,6 +12,8 @@ public class StepDefinitions {
     InventoryPage invPage = new InventoryPage(driver);
     CartPage cPage = new CartPage(driver);
     CheckOutPage chPage =  new CheckOutPage(driver);
+    OverviewPage overPage =  new OverviewPage(driver);
+    CheckOutComplete chCompl = new CheckOutComplete(driver);
 
     @Given("the browser is launched and test environment is set up")
     public void the_browser_is_launched_and_test_environment_is_set_up() {
@@ -49,7 +47,6 @@ public class StepDefinitions {
 
     @And("the logout button is visible")
     public void the_logout_button_is_visible() {
-        System.out.println(invPage.isLogoutVisible());
         Assert.assertTrue(invPage.isLogoutVisible(), "No se encuentra logout");
     }
 
@@ -111,38 +108,35 @@ public class StepDefinitions {
 
     @Then("the user proceeds to the confirmation page")
     public void the_user_proceeds_to_the_confirmation_page() {
-
+        Assert.assertTrue(overPage.VerifyOverviewPage(),"Pagina overvew no esta disponible");
     }
 
     @When("the user reviews the order on the confirmation page")
     public void the_user_reviews_the_order_on_the_confirmation_page() {
-
+        Assert.assertTrue(invPage.verifyProductNamesAndPrices(),"Items visibles");
     }
 
     @Then("the correct items are displayed")
     public void the_correct_items_are_displayed() {
-
+        Assert.assertTrue(invPage.verifyProductNamesAndPrices(),"Productos y precios correctos");
     }
 
     @When("the user logs out of the website")
     public void the_user_logs_out_of_the_website() {
-
+        overPage.finish();
     }
 
     @Then("the user is logged out successfully")
     public void the_user_is_logged_out_successfully() {
-
+        chCompl.clickBackHome();
+        invPage.logOut();
     }
 
-    @When("the user attempts to log in with the {string} credentials")
-    public void the_user_attempts_to_log_in_with_the_credentials(String string) {
-
+    @When("the user attempts to log in with the locked user credentials")
+    public void the_user_attempts_to_log_in_with_the_credentials() {
+        Assert.assertTrue(logPage.verifyLocketUser());
     }
 
-    @Then("the system displays a locked-out error message")
-    public void the_system_displays_a_locked_out_error_message() {
-
-    }
 
     @When("the browser session is closed")
     public void the_browser_session_is_closed() {

@@ -84,6 +84,8 @@ public class InventoryPage {
         return true;
     }
 
+
+
     public void addItems() {
         addJacket.click();
         addBackpack.click();
@@ -100,5 +102,10 @@ public class InventoryPage {
 
     public void enterCartPage() {
         cartIcon.click();
+    }
+
+    public void logOut(){
+        menu.click();
+        loggout.click();
     }
 }

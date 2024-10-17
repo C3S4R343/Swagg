@@ -27,7 +27,7 @@ public class CheckOutPage {
 
     public boolean verifyCheckOutPage(){
         String url = driver.getCurrentUrl();
-
+        assert url != null;
         return url.equals("https://www.saucedemo.com/checkout-step-one.html");
     }
 

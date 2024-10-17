@@ -1,5 +1,6 @@
 package Pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,6 +22,8 @@ public class LoginPage {
     WebElement logo;
 
 
+
+
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -40,4 +43,21 @@ public class LoginPage {
         password.sendKeys(pass);
         btnLogin.click();
     }
+
+    public boolean verifyLocketUser(){
+        if(userName.isDisplayed()){
+            userName.sendKeys("locked_out_user");
+            password.sendKeys("secret_sauce");
+            btnLogin.click();
+        }
+
+        WebElement errMessage = driver.findElement(By.xpath("//h3[@data-test='error']"));
+
+        if(errMessage.isDisplayed()){
+            return true;
+        }
+        return false;
+
+    }
+
 }

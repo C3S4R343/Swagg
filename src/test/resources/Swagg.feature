@@ -1,4 +1,4 @@
-Feature: Swag Labs End-to-End Flow
+Feature: Cucumber exercise
 
   Scenario: Complete user journey on Swag Labs in a single session
     Given the browser is launched and test environment is set up
@@ -35,8 +35,8 @@ Feature: Swag Labs End-to-End Flow
     When the user logs out of the website
     Then the user is logged out successfully
 
-    When the user attempts to log in with the "locked_out_user" credentials
-    Then the system displays a locked-out error message
+    When the user attempts to log in with the locked user credentials
+
 
     When the browser session is closed
     Then the driver is terminated

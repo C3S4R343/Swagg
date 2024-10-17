@@ -11,7 +11,7 @@ import java.util.List;
 public class InventoryPage {
     WebDriver driver;
 
-    @FindBy(id="react-burger-menu-btn")
+    @FindBy(id = "react-burger-menu-btn")
     WebElement menu;
 
     @FindBy(xpath = "//a[@data-test='logout-sidebar-link']")
@@ -29,48 +29,54 @@ public class InventoryPage {
     @FindBy(xpath = "//button[@name='add-to-cart-sauce-labs-bolt-t-shirt']")
     WebElement addTshirt;
 
-    public InventoryPage(WebDriver driver){
+    @FindBy(xpath = "//a[@class='shopping_cart_link']")
+    WebElement cartIcon;
+
+    @FindBy(xpath = "//button[@name='remove-sauce-labs-fleece-jacket']")
+    WebElement removeJacket;
+
+    public InventoryPage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
 
-    public boolean verifyUrl(){
+    public boolean verifyUrl() {
         String url = driver.getCurrentUrl();
-        return  url.equals("https://www.saucedemo.com/inventory.html");
+        return url.equals("https://www.saucedemo.com/inventory.html");
     }
 
-    public boolean isLogoutVisible(){
+    public boolean isLogoutVisible() {
         return loggout.isEnabled();
     }
 
-    public void openMenu(){
+    public void openMenu() {
         menu.click();
     }
 
-    public void CloseMenu(){
+    public void CloseMenu() {
         closeMenu.click();
     }
 
-    public boolean verifyProductNamesAndPrices(){
+    public boolean verifyProductNamesAndPrices() {
         // Localiza todos los elementos que contienen los nombres de los productos y su precio
         List<WebElement> productNames = driver.findElements(By.cssSelector("[data-test='inventory-item-name']"));
         List<WebElement> productPrices = driver.findElements(By.cssSelector("[data-test='inventory-item-price']"));
 
         //Verificar que hat elementos de nombres y precios
-        if(productNames.isEmpty() || productPrices.isEmpty()){
+        if (productNames.isEmpty() || productPrices.isEmpty()) {
             return false;
         }
 
         //Verificar que todos los nombres de productos sean visibles
-        for(WebElement productName : productNames){
-            if(!productName.isDisplayed()){
+        for (WebElement productName : productNames) {
+            if (!productName.isDisplayed()) {
                 System.out.println("Nombre de producto no esta disponible" + productName);
                 return false;
             }
         }
 
-        for(WebElement productPrice : productPrices){
-            if(!productPrice.isDisplayed()){
+        for (WebElement productPrice : productPrices) {
+            if (!productPrice.isDisplayed()) {
                 System.out.println("Precio de producto no disponible" + productPrice);
                 return false;
             }
@@ -78,9 +84,21 @@ public class InventoryPage {
         return true;
     }
 
-    public void addItems(){
+    public void addItems() {
         addJacket.click();
         addBackpack.click();
         addTshirt.click();
+    }
+
+    public boolean getItemsNumer() {
+        return cartIcon.getText().equals("3");
+    }
+
+    public void remoteItem() {
+        removeJacket.click();
+    }
+
+    public void enterCartPage() {
+        cartIcon.click();
     }
 }

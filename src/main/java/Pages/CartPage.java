@@ -21,6 +21,7 @@ public class CartPage {
 
     public boolean verifyCartPage(){
         String url = driver.getCurrentUrl();
+        assert url != null;
         return url.equals("https://www.saucedemo.com/cart.html");
     }
 

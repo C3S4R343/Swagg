@@ -42,6 +42,7 @@ public class InventoryPage {
 
     public boolean verifyUrl() {
         String url = driver.getCurrentUrl();
+        assert url != null;
         return url.equals("https://www.saucedemo.com/inventory.html");
     }
 
